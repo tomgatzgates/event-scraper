@@ -34,5 +34,6 @@ describe '#parse_result' do
     expect(result.id).to eq 374739
     expect(result.artist).to eq 'Adam Holmes & The Embers'
     expect(result.city).to eq 'Sheffield'
+    expect(result.venue).to eq 'The Greystones'
   end
 end

@@ -29,13 +29,24 @@ def city(result_html)
   result_html.at_css('h4').text.split(':')[0].strip.capitalize
 end
 
+def venue(result_html)
+  result_html.at_css('h4')
+    .text
+    .split(':')[1..-1]
+    .join(' ')
+    .strip
+    .split
+    .map(&:capitalize)
+    .join(' ')
+end
+
 def parse_result(result_html)
   event = Event.new
 
   event.id = event_id result_html
   event.artist = artist result_html
   event.city = city result_html
-
+  event.venue = venue result_html
   event
 end
 
