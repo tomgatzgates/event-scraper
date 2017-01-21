@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'open-uri'
 
 def page_url(page_number)
   base_url = "http://www.wegottickets.com/searchresults/page/PAGE_NUMBER/all#paginate"
@@ -6,6 +7,7 @@ def page_url(page_number)
 end
 
 def fetch_page(page_url)
+  Nokogiri::HTML(open(page_url))
 end
 
 
@@ -14,5 +16,6 @@ if $0 == __FILE__
     print "\nFetching results for page #{page_number}: "
     url = page_url page_number
     page = fetch_page url
+    results = fetch_results page
   end
 end

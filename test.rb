@@ -1,5 +1,4 @@
 require_relative 'fetch_data'
-require 'nokogiri'
 
 describe '#page_url' do
   it 'returns the correct url with page number' do
