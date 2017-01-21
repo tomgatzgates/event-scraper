@@ -36,5 +36,6 @@ describe '#parse_result' do
     expect(result.city).to eq 'Sheffield'
     expect(result.venue).to eq 'The Greystones'
     expect(result.date).to eq Date.new(2017, 1, 21)
+    expect(result.price).to eq 13.75
   end
 end
