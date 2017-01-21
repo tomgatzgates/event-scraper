@@ -20,11 +20,15 @@ def event_id(result_html)
   result_html.at_css('h2 a')['href'].match(/[0-9]+$/).to_s.to_i
 end
 
+def artist(result_html)
+  result_html.at_css('h2')
+    .text.strip.split.map(&:capitalize).join(' ')
+end
+
 def parse_result(result_html)
   event = Event.new
   event.id = event_id result_html
-
-  event
+  event.artist = artist result_html
 end
 
 if $0 == __FILE__
