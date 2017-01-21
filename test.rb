@@ -27,7 +27,7 @@ end
 
 describe '#parse_result' do
   it 'returns an Event struct' do
-    html = Nokogiri::HTML open('sample_event.html')
+    html = Nokogiri::HTML(open('sample_event.html'), nil, Encoding::UTF_8.to_s)
     result = parse_result html
 
     expect(result.class).to eq Event
