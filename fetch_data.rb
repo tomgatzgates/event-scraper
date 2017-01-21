@@ -33,6 +33,10 @@ REQUIRED_DATA = {
     method: lambda { |node| node.text.split(':')[1..-1].join(' ').strip.split.map(&:capitalize).join(' ') },
     mapping: "h4",
   },
+  date: {
+    method: lambda { |node| Date.parse(node.text) },
+    mapping: 'h4:nth-child(2)',
+  },
 }
 
 def parse_result(result_html)
