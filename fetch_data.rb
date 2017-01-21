@@ -14,6 +14,11 @@ def fetch_results(document)
   document.css('div.content.chatterbox-margin')
 end
 
+Event = Struct.new :id, :artist, :city, :venue, :date, :price
+
+def parse_result(result_html)
+  event = Event.new
+end
 
 if $0 == __FILE__
   (1..10).each do |page_number|

@@ -24,3 +24,12 @@ describe '#fetch_results' do
     expect(results[0].class).to eq Nokogiri::XML::Element
   end
 end
+
+describe '#parse_result' do
+  it 'returns an Event struct' do
+    html = Nokogiri::HTML open('sample_event.html')
+    result = parse_result html
+
+    expect(result.class).to eq Event
+  end
+end
