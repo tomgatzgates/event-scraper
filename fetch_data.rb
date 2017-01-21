@@ -16,44 +16,34 @@ end
 
 Event = Struct.new :id, :artist, :city, :venue, :date, :price
 
-MAPPINGS = {
-  event_id: 'h2 a',
-  artist: 'h2',
-  city: 'h4',
-  venue: 'h4',
+REQUIRED_DATA = {
+  id: {
+    method: lambda { |node| node['href'].match(/[0-9]+$/).to_s.to_i },
+    mapping: 'h2 a',
+  },
+  artist: {
+    method: lambda { |node| node.text.strip.split.map(&:capitalize).join(' ') },
+    mapping: 'h2',
+  },
+  city: {
+    method: lambda { |node| node.text.split(':')[0].strip.capitalize },
+    mapping: "h4",
+  },
+  venue: {
+    method: lambda { |node| node.text.split(':')[1..-1].join(' ').strip.split.map(&:capitalize).join(' ') },
+    mapping: "h4",
+  },
 }
-
-def event_id(result_html)
-  result_html.at_css(MAPPINGS[:event_id])['href'].match(/[0-9]+$/).to_s.to_i
-end
-
-def artist(result_html)
-  result_html.at_css(MAPPINGS[:artist])
-    .text.strip.split.map(&:capitalize).join(' ')
-end
-
-def city(result_html)
-  result_html.at_css(MAPPINGS[:city]).text.split(':')[0].strip.capitalize
-end
-
-def venue(result_html)
-  result_html.at_css(MAPPINGS[:venue])
-    .text
-    .split(':')[1..-1]
-    .join(' ')
-    .strip
-    .split
-    .map(&:capitalize)
-    .join(' ')
-end
 
 def parse_result(result_html)
   event = Event.new
 
-  event.id = event_id result_html
-  event.artist = artist result_html
-  event.city = city result_html
-  event.venue = venue result_html
+  REQUIRED_DATA.each_pair do |attribute, helpers|
+    fn = helpers[:method]
+    node = result_html.at_css(helpers[:mapping])
+
+    event[attribute] = !!node ? fn.call(node) : nil
+  end
 
   event
 end
