@@ -31,5 +31,6 @@ describe '#parse_result' do
     result = parse_result html
 
     expect(result.class).to eq Event
+    expect(result.id).to eq 374739
   end
 end

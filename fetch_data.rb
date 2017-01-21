@@ -16,8 +16,15 @@ end
 
 Event = Struct.new :id, :artist, :city, :venue, :date, :price
 
+def event_id(result_html)
+  result_html.at_css('h2 a')['href'].match(/[0-9]+$/).to_s.to_i
+end
+
 def parse_result(result_html)
   event = Event.new
+  event.id = event_id result_html
+
+  event
 end
 
 if $0 == __FILE__
