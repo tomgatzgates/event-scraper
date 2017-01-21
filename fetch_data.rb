@@ -16,21 +16,28 @@ end
 
 Event = Struct.new :id, :artist, :city, :venue, :date, :price
 
+MAPPINGS = {
+  event_id: 'h2 a',
+  artist: 'h2',
+  city: 'h4',
+  venue: 'h4',
+}
+
 def event_id(result_html)
-  result_html.at_css('h2 a')['href'].match(/[0-9]+$/).to_s.to_i
+  result_html.at_css(MAPPINGS[:event_id])['href'].match(/[0-9]+$/).to_s.to_i
 end
 
 def artist(result_html)
-  result_html.at_css('h2')
+  result_html.at_css(MAPPINGS[:artist])
     .text.strip.split.map(&:capitalize).join(' ')
 end
 
 def city(result_html)
-  result_html.at_css('h4').text.split(':')[0].strip.capitalize
+  result_html.at_css(MAPPINGS[:city]).text.split(':')[0].strip.capitalize
 end
 
 def venue(result_html)
-  result_html.at_css('h4')
+  result_html.at_css(MAPPINGS[:venue])
     .text
     .split(':')[1..-1]
     .join(' ')
@@ -47,6 +54,7 @@ def parse_result(result_html)
   event.artist = artist result_html
   event.city = city result_html
   event.venue = venue result_html
+
   event
 end
 
