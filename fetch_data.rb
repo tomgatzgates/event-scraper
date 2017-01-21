@@ -1,6 +1,11 @@
+require 'nokogiri'
+
 def page_url(page_number)
   base_url = "http://www.wegottickets.com/searchresults/page/PAGE_NUMBER/all#paginate"
   page_url = base_url.gsub(/PAGE_NUMBER/, page_number.to_s)
+end
+
+def fetch_page(page_url)
 end
 
 
