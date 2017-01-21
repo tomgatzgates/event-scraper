@@ -15,3 +15,12 @@ describe '#fetch_page' do
     expect(result.class).to eq Nokogiri::HTML::Document
   end
 end
+
+describe '#fetch_results' do
+  it 'returns array of XML Elements' do
+    sample = Nokogiri::HTML(open('sample_results.html'))
+    results = fetch_results sample
+
+    expect(results[0].class).to eq Nokogiri::XML::Element
+  end
+end

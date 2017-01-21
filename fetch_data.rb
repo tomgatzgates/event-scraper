@@ -10,6 +10,10 @@ def fetch_page(page_url)
   Nokogiri::HTML(open(page_url))
 end
 
+def fetch_results(document)
+  document.css('div.content.chatterbox-margin')
+end
+
 
 if $0 == __FILE__
   (1..10).each do |page_number|
